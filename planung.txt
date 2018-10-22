@@ -1,0 +1,18 @@
+was es können soll:
+	- nuzter zu einer bday liste hinzufügen [Datum {01.01.1990 / 02.02.}, Name/username]
+	- nutzer aus liste löschen
+	- liste mit nutzern ausgeben
+	- nutzer sollen einträge auswählen können von denen sie benachrichtigungen erhalten wollen
+	- bot soll nutzer bei geburtstagen benachrichtigen [entweder PM oder in channel]
+	[lustige texte bie den geburtstagen]
+	
+commands:
+	?add "name" "date" -> ?add kitty 10.10.1991
+	?add "date" -> ?add 10.10.1991 [fügt den nutzer selbst hinzu]
+	?remove "name" "date" -> ?remove kitty 10.10.1991
+	?remove "date" -> ?remove 10.10.1991 [löscht den nutzer selbst]
+	?list -> 10.10.1991 kitty
+			 05.12.1998 Bob
+	?mylist
+	?alert "name"
+	?setchannel.this
