@@ -3,6 +3,8 @@
 Created on Thu Oct 18 17:13:31 2018
 
 @author: Lycran
+
+Token: NTA0MjM4MzYzMzU2NjkyNDgx.DrCIug.UyyHpFJ2SvDUh-lyOvrMXBibDIc
 """
 
 import discord
@@ -18,4 +20,4 @@ async def on_ready():
 async def on_message(message):
     print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
 
-client.run("")
+client.run("NTA0MjM4MzYzMzU2NjkyNDgx.DrCIug.UyyHpFJ2SvDUh-lyOvrMXBibDIc")
