@@ -1,3 +1,7 @@
+Using the bot also for other birthdays other than the on the server itself.
+
+# Ideas 
+## Idea
 was es können soll:
 	- nuzter zu einer bday liste hinzufügen [Datum {01.01.1990 / 02.02.}, Name/username]
 	- nutzer aus liste löschen
@@ -16,3 +20,18 @@ commands:
 	?mylist
 	?alert "name"
 	?setchannel.this
+
+## Database
+### User
+
+- ID
+- name
+- Bday
+
+### Subscribtion
+
+- Username/UserID/ServerID
+- User.ID (foreign key)
+- Channel ID
+
+Channel ID: Add channel ID for channel to post to or local if it is only a private subscription for a user
