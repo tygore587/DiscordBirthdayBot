@@ -1,7 +1,8 @@
 Using the bot also for other birthdays other than the on the server itself.
 
-# Ideas 
-## Idea
+# Ideas
+
+## Idea 1
 was es können soll:
 	- nuzter zu einer bday liste hinzufügen [Datum {01.01.1990 / 02.02.}, Name/username]
 	- nutzer aus liste löschen
@@ -21,14 +22,14 @@ commands:
 	?alert "name"
 	?setchannel.this
 
-## Database
-### User
+### Database
+#### User
 
 - ID
 - name
 - Bday
 
-### Subscribtion
+#### Subscribtion
 
 - Username/UserID/ServerID
 - User.ID (foreign key)
