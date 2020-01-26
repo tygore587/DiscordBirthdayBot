@@ -2,8 +2,12 @@
   "name": "discordbirthdaybot",
   "version": "1.0.0",
   "description": "This is a discord bot for birthday annoucements.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
+    "dev": "nodemon src/index.ts",
+    "debug" : "nodemon --inspect src/index.ts",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +30,16 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "@types/node": "^13.5.0",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   }
 }
