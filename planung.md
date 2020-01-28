@@ -11,7 +11,7 @@ optional:
  - Mentions an Personen immer per PM. Bday selber in den Chat.
  - lustige texte bie den geburtstagen oder einen Wiki
 
-prefix: /
+prefix: !
 
 commands:
 ```
