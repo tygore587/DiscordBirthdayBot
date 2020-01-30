@@ -1,19 +1,17 @@
 import discord, { Message, User } from 'discord.js';
-import { config } from 'dotenv';
+
 import { Constants } from './constants';
 import { UserEntity } from './userEntity';
 
-var storage : string = "";
-var userStorage : {[id : string] : UserEntity} = {};
 
-config({
-    path: __dirname + '/../.env',
-});
+var userStorage : {[id : string] : UserEntity} = {};
 
 const client = new discord.Client();
 
 client.on('ready', () => {
     console.log(`I'm online, my name is ${client.user.username}`);
+    console.log(`My prefix is: ${Constants.PREFIX}`);
+    console.log(`I'm running in the following environment: ${process.env.ENVIRONMENT}`)
     client.user.setPresence({
         status: 'online',
         game: {
@@ -25,10 +23,10 @@ client.on('ready', () => {
 
 client.on('message', async (message: Message) => {
     console.log(`${message.author.username} says: ${message.content}`);
-    if (!message.content.startsWith(Constants.prefix)) {
+    if (!message.content.startsWith(Constants.PREFIX)) {
         return;
     }
-    const content = message.content.replace(Constants.prefix, '');
+    const content = message.content.replace(Constants.PREFIX, '');
 
     if (content === 'hello') {
         message.reply('Hello you also');

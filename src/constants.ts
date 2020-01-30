@@ -1,3 +1,4 @@
+import "./env"
 export class Constants {
-    static prefix : string  = "!";
+    static PREFIX : string = process.env.ENVIRONMENT == "production" ? "!" : "?";
 }
