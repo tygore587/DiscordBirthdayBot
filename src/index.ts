@@ -63,12 +63,8 @@ client.on('message', async (message: Message) => {
             message.reply(`Your birthday isn't added yet!`);
         }
     }
-    
-    if (content == 'personal') {
-        message.author.send('this is a personal message');
-    }
 
-    if (content == 'birthdays') {
+    if (content == 'birthdays' || content === 'list') {
         message.reply(`Here are all the birthdays. ${JSON.stringify(userStorage)}`);
     }
 });
