@@ -74,9 +74,9 @@ export class BirthdayCommands {
             .minArgs(1)
             .whenInvalid(`Please use ${Constants.PREFIX}deny <confirmationCode>`)
             .do((args: string[], rawArgs: string, message: Message) => {
-                let confirmationCode = args[0]
+                let confirmationCode = args[0];
                 let authorId = message.author.id;
-                
+
                 if (this.userStorage[confirmationCode]) {
                     if (this.userStorage[confirmationCode].userId !== authorId) {
                         message.reply("You can't deny someone elses birthday!");

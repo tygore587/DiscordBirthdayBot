@@ -14,12 +14,12 @@ export class HelloWorldCommands {
         this.initCommands();
     }
 
-    private initCommands(): void{
+    private initCommands(): void {
         this.initHelloWorld();
     }
 
     private initHelloWorld() {
-        this.handler.onCommand(`${Constants.PREFIX}hello`).do((args : string[], rawArgs : string, message : Message) => {
+        this.handler.onCommand(`${Constants.PREFIX}hello`).do((args: string[], rawArgs: string, message: Message) => {
             console.log(args);
             message.reply('world');
         });
