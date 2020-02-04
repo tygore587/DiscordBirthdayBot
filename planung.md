@@ -5,13 +5,14 @@ mandatory:
  - Liste ausgeben, eventuell mit Flag von Originalnutzer, ob er das erlaubt
  - Nutzer fragen, der hingefügt werden soll, ob er es ok findet, dass er hinzugefügt wird
  - Nutzer entfernen, die den Server verlassen
+ - Server unterscheiden
 	
 optional:
  - Nutzer kann sich zu bestimmten BDays subscriben. (Er wird dann mit gementioned um ihn auf den Bday aufmerksam zu machen).
  - Mentions an Personen immer per PM. Bday selber in den Chat.
  - lustige texte bie den geburtstagen oder einen Wiki
 
-prefix: !
+prefix: ! für prod / ? für dev
 
 commands:
 ```

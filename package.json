@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "debug" : "nodemon --inspect src/index.ts",
+    "debug": "nodemon --inspect src/index.ts",
     "build": "rimraf ./build && tsc",
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/easylite376/DiscordBirthdayBot#readme",
   "dependencies": {
+    "@discordjs/uws": "^10.149.0",
+    "discord-message-handler": "^2.1.1",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0"
   },
