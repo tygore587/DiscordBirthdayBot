@@ -2,8 +2,8 @@ import discord, { Message } from 'discord.js';
 import { MessageHandler } from 'discord-message-handler';
 import { Constants } from './constants';
 import { UserEntity } from './userEntity';
-import { HelloWorldCommands } from './commands/helloWorld';
-import { BirthdayCommands } from './commands/birthday';
+import { HelloWorldHandler } from './handler/helloWorldHandler';
+import { BirthdayHandler } from './handler/birthdayHandler';
 
 function onReady(): void {
     console.log(`I'm online, my name is ${client.user.username}`);
@@ -27,11 +27,10 @@ function onMessage(message: Message) {
 
 const handler = new MessageHandler();
 const client = new discord.Client();
-const userStorage: { [id: string]: UserEntity } = {};
 
 client.on('ready', onReady);
 client.on('message', onMessage);
-HelloWorldCommands.setup(handler);
-BirthdayCommands.setup(handler, userStorage);
+HelloWorldHandler.setup(handler);
+BirthdayHandler.setup(handler);
 
 client.login(process.env.TOKEN);
