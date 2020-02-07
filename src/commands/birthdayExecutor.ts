@@ -2,9 +2,9 @@ import { Message } from 'discord.js';
 import { UserEntity } from '../userEntity';
 import { Dictionary } from '../dictionary';
 import { Constants } from '../constants';
-import { CommandExecutor } from './commandExecutor';
+import { Executor } from './executor';
 
-export class BirthdayCommandExecutor implements CommandExecutor {
+export class BirthdayExecutor implements Executor {
     public static addBirthday: string = 'add';
     public static confirmBirthday: string = 'confirm';
     public static denyBirthday: string = 'deny';
@@ -16,16 +16,16 @@ export class BirthdayCommandExecutor implements CommandExecutor {
 
     public execute(args: string[], rawArgs: string, message: Message, command: string): void {
         switch (command) {
-            case BirthdayCommandExecutor.addBirthday:
+            case BirthdayExecutor.addBirthday:
                 this.addBirthday(message);
                 break;
-            case BirthdayCommandExecutor.confirmBirthday:
+            case BirthdayExecutor.confirmBirthday:
                 this.confirmSave(args, message);
                 break;
-            case BirthdayCommandExecutor.denyBirthday:
+            case BirthdayExecutor.denyBirthday:
                 this.denySave(args, message);
                 break;
-            case BirthdayCommandExecutor.listBirthday:
+            case BirthdayExecutor.listBirthday:
                 this.listBirthdays(message);
                 break;
         }

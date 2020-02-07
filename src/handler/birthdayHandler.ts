@@ -3,11 +3,11 @@ import { Constants } from '../constants';
 import { Message } from 'discord.js';
 import { Dictionary } from '../dictionary';
 import { UserEntity } from '../userEntity';
-import { BirthdayCommandExecutor } from '../commands/birthdayCommandExecutor';
+import { BirthdayExecutor } from '../commands/birthdayExecutor';
 
 export class BirthdayHandler {
     private handler: MessageHandler;
-    private executor: BirthdayCommandExecutor = new BirthdayCommandExecutor();
+    private executor: BirthdayExecutor = new BirthdayExecutor();
 
     static setup(handler: MessageHandler): void {
         new BirthdayHandler(handler);
@@ -25,38 +25,38 @@ export class BirthdayHandler {
 
     private initAddCommands() {
         this.handler
-            .onCommand(`${Constants.PREFIX}${BirthdayCommandExecutor.addBirthday}`)
+            .onCommand(`${Constants.PREFIX}${BirthdayExecutor.addBirthday}`)
             .minArgs(2)
             .whenInvalid(`Use ${Constants.PREFIX}add <mention> <Date in dd.mm.YYYY>`)
             .do((args: string[], rawArgs: string, message: Message) => {
-                this.executor.execute(args,rawArgs,message,BirthdayCommandExecutor.addBirthday);
+                this.executor.execute(args,rawArgs,message,BirthdayExecutor.addBirthday);
             });
 
         this.handler
-            .onCommand(`${Constants.PREFIX}${BirthdayCommandExecutor.confirmBirthday}`)
+            .onCommand(`${Constants.PREFIX}${BirthdayExecutor.confirmBirthday}`)
             .minArgs(1)
             .whenInvalid(`Please use ${Constants.PREFIX}confirm <confirmationCode>`)
             .do((args: string[], rawArgs: string, message: Message) => {
-                this.executor.execute(args,rawArgs,message,BirthdayCommandExecutor.confirmBirthday);
+                this.executor.execute(args,rawArgs,message,BirthdayExecutor.confirmBirthday);
             });
 
         this.handler
-            .onCommand(`${Constants.PREFIX}${BirthdayCommandExecutor.denyBirthday}`)
+            .onCommand(`${Constants.PREFIX}${BirthdayExecutor.denyBirthday}`)
             .minArgs(1)
             .whenInvalid(`Please use ${Constants.PREFIX}deny <confirmationCode>`)
             .do((args: string[], rawArgs: string, message: Message) => {
-                this.executor.execute(args,rawArgs,message,BirthdayCommandExecutor.denyBirthday);
+                this.executor.execute(args,rawArgs,message,BirthdayExecutor.denyBirthday);
             });
     }
 
     private initGetCommands() {
         this.handler
-            .onCommand(`${Constants.PREFIX}${BirthdayCommandExecutor.listBirthday}`)
+            .onCommand(`${Constants.PREFIX}${BirthdayExecutor.listBirthday}`)
             .alias(`${Constants.PREFIX}birthdays`)
             .minArgs(0)
             .whenInvalid(`Just use ${Constants.PREFIX}list`)
             .do((args: string[], rawArgs: string, message: Message) => {
-                this.executor.execute(args,rawArgs,message,BirthdayCommandExecutor.listBirthday);
+                this.executor.execute(args,rawArgs,message,BirthdayExecutor.listBirthday);
             });
     }
 }

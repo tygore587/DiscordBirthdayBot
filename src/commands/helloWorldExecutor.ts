@@ -1,12 +1,12 @@
-import { CommandExecutor } from './commandExecutor';
+import { Executor } from './executor';
 import { Message } from 'discord.js';
 
-export class HelloWorldCommandExecutor implements CommandExecutor {
+export class HelloWorldExecutor implements Executor {
     public static helloWorld = 'hello';
 
     public execute(args: string[], rawArgs: string, message: any, command: string): void {
         switch (command) {
-            case HelloWorldCommandExecutor.helloWorld:
+            case HelloWorldExecutor.helloWorld:
                 this.helloWorld(args,message);
                 break;
         }
