@@ -1,7 +1,7 @@
 import { MessageHandler } from 'discord-message-handler';
-import { Constants } from '../constants';
+import { Config } from '../../config/config';
 import { Message } from 'discord.js';
-import { HelloWorldExecutor } from '../commands/helloWorldExecutor';
+import { HelloWorldExecutor } from '../commands_old/helloWorldExecutor';
 
 export class HelloWorldHandler {
     private handler: MessageHandler;
@@ -21,7 +21,7 @@ export class HelloWorldHandler {
     }
 
     private initHelloWorld() {
-        this.handler.onCommand(`${Constants.PREFIX}${HelloWorldExecutor.helloWorld}`).do((args: string[], rawArgs: string, message: Message) => {
+        this.handler.onCommand(`${Config.PREFIX}${HelloWorldExecutor.helloWorld}`).do((args: string[], rawArgs: string, message: Message) => {
             this.executor.execute(args,rawArgs,message,HelloWorldExecutor.helloWorld);
             
         });

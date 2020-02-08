@@ -1,10 +1,26 @@
-import discord, { Message } from 'discord.js';
-import { MessageHandler } from 'discord-message-handler';
-import { Constants } from './constants';
-import { UserEntity } from './userEntity';
-import { HelloWorldHandler } from './handler/helloWorldHandler';
-import { BirthdayHandler } from './handler/birthdayHandler';
+import { Config } from './config/config';
+import {AkairoClient, AkairoOptions} from 'discord-akairo';
+import { join } from 'path';
 
+// new code here
+
+const akairooptions : AkairoOptions = {
+    ownerID: Config.OWNER,
+    prefix: Config.PREFIX,
+    commandUtil: true,
+    commandDirectory: join(__dirname,"commands"), // folder to declare commands
+    inhibitorDirectory: join(__dirname,"inhibitors"), // folder to declare when command should be ignored
+    listenerDirectory: join(__dirname,"listeners"), // just to listen to events of discord like ready or message or something else
+}
+
+const client = new AkairoClient(akairooptions,{});
+client.login(`${Config.TOKEN}`);
+
+
+
+// old code here
+
+/*
 function onReady(): void {
     console.log(`I'm online, my name is ${client.user.username}`);
     console.log(`My prefix is: ${Constants.PREFIX}`);
@@ -34,3 +50,4 @@ HelloWorldHandler.setup(handler);
 BirthdayHandler.setup(handler);
 
 client.login(process.env.TOKEN);
+*/

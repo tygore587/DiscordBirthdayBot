@@ -1,9 +1,9 @@
 import { MessageHandler } from 'discord-message-handler';
-import { Constants } from '../constants';
+import { Constants } from '../config/constants';
 import { Message } from 'discord.js';
-import { Dictionary } from '../dictionary';
-import { UserEntity } from '../userEntity';
-import { BirthdayExecutor } from '../commands/birthdayExecutor';
+import { Dictionary } from '../models/dictionary';
+import { UserEntity } from '../models/userEntity';
+import { BirthdayExecutor } from '../old/commands_old/birthdayExecutor';
 
 export class BirthdayHandler {
     private handler: MessageHandler;

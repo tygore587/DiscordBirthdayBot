@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
-import { UserEntity } from '../userEntity';
-import { Dictionary } from '../dictionary';
-import { Constants } from '../constants';
+import { UserEntity } from '../../models/userEntity';
+import { Dictionary } from '../../models/dictionary';
+import { Config } from '../../config/config';
 import { Executor } from './executor';
 
 export class BirthdayExecutor implements Executor {
@@ -41,7 +41,7 @@ export class BirthdayExecutor implements Executor {
             const userEntity = new UserEntity(firstUser.id, false, new Date(), confirmationCode, message.guild.id);
             this.userStorage[confirmationCode] = userEntity;
             firstUser.send(
-                `Is it ok if user adding your birthday to server ${message.guild}? Type ${Constants.PREFIX}confirm ${confirmationCode} /${Constants.PREFIX}deny ${confirmationCode}`,
+                `Is it ok if user adding your birthday to server ${message.guild}? Type ${Config.PREFIX}confirm ${confirmationCode} /${Config.PREFIX}deny ${confirmationCode}`,
             );
             message.reply('User is asked for confirmation to save the birthday.');
         }

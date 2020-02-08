@@ -2,12 +2,12 @@
   "name": "discordbirthdaybot",
   "version": "1.0.0",
   "description": "This is a discord bot for birthday annoucements.",
-  "main": "build/index.js",
+  "main": "build/bot.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "debug": "nodemon --inspect src/index.ts",
+    "dev": "nodemon src/bot.ts",
+    "debug": "nodemon --inspect src/bot.ts",
     "build": "rimraf ./build && tsc",
-    "start": "node build/index.js",
+    "start": "node build/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/easylite376/DiscordBirthdayBot#readme",
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "discord-message-handler": "^2.1.1",
+    "discord-akairo": "^7.5.6",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0"
   },
