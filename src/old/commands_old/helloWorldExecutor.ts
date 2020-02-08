@@ -1,4 +1,4 @@
-import { Executor } from './executor';
+/*import { Executor } from './executor';
 import { Message } from 'discord.js';
 
 export class HelloWorldExecutor implements Executor {
@@ -17,3 +17,4 @@ export class HelloWorldExecutor implements Executor {
         message.reply('world');
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import { MessageHandler } from 'discord-message-handler';
 import { Constants } from '../config/constants';
 import { Message } from 'discord.js';
@@ -60,3 +61,4 @@ export class BirthdayHandler {
             });
     }
 }
+*/

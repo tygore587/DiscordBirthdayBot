@@ -1,3 +1,4 @@
+/*
 import { MessageHandler } from 'discord-message-handler';
 import { Config } from '../../config/config';
 import { Message } from 'discord.js';
@@ -27,3 +28,4 @@ export class HelloWorldHandler {
         });
     }
 }
+*/

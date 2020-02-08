@@ -1,3 +1,4 @@
+/*
 import { Message } from 'discord.js';
 import { UserEntity } from '../../models/userEntity';
 import { Dictionary } from '../../models/dictionary';
@@ -82,3 +83,4 @@ export class BirthdayExecutor implements Executor {
         message.reply(`Here are all the birthdays. ${JSON.stringify(this.userStorage)}`);
     }
 }
+*/
