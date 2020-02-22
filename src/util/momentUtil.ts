@@ -1,8 +1,8 @@
-import moment = require('moment');
+import moment from 'moment';
 import { Constants } from './constants';
 
-export function parseDateExact(dateString: string, format: string[]): string | null {
-    let date = moment(dateString, format, true);
+export function parseDateExact(dateString: string, format: string): string | undefined {
+    const date = moment(dateString, format, true);
 
-    return date.isValid() ? date.format(Constants.DATE_FORMAT_LEADING_ZERO) : null;
+    return date.isValid() ? date.format(Constants.DATE_FORMAT) : undefined;
 }

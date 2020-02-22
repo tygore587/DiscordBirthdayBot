@@ -1,6 +1,5 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { Config } from '../../config/config';
 import { StorageManager } from '../../persistence/storageManager';
 
 export default class ConfirmBirthdayCommand extends Command {
@@ -11,10 +10,8 @@ export default class ConfirmBirthdayCommand extends Command {
         });
     }
 
-    exec(message: Message) {
-
-        let users = StorageManager.GetByGuildId(message.guild.id);
-
+    exec(message: Message): Promise<Message | Message[]> {
+        const users = StorageManager.GetByGuildId(message.guild.id);
         return message.reply(JSON.stringify(users));
     }
 }

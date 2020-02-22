@@ -17,7 +17,8 @@ export default class ConfirmBirthdayCommand extends Command {
         });
     }
 
-    exec(message: Message, args: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    exec(message: Message, args: any): Promise<Message | Message[]> {
         if (!args.confirmationCode) {
             return message.reply(`You have to use the command correctly: ${Config.PREFIX}confirm <confirmationCode>`);
         }
@@ -29,8 +30,7 @@ export default class ConfirmBirthdayCommand extends Command {
         }
 
         if (message.author.id !== userEntity.userId) {
-            message.reply("You can't confirm someone elses birthday!");
-            return;
+            return message.reply("You can't confirm someone else birthday!");
         }
         userEntity.confirmation = true;
 

@@ -1,10 +1,10 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { parseDateExact } from '../../util/momentUtil';
-import { Constants } from '../../util/constants';
 import { Config } from '../../config/config';
 import { UserEntity } from '../../models/userEntity';
 import { StorageManager } from '../../persistence/storageManager';
+import { Constants } from '../../util/constants';
+import { parseDateExact } from '../../util/momentUtil';
 
 export default class AddBirthdayCommand extends Command {
     constructor() {
@@ -17,32 +17,32 @@ export default class AddBirthdayCommand extends Command {
                 },
                 {
                     id: 'date',
-                    type: date => parseDateExact(date, Constants.DATE_FORMATS),
+                    type: (date: string): string | undefined => parseDateExact(date, Constants.DATE_FORMAT),
                 },
             ],
             channelRestriction: 'guild',
         });
     }
 
-    exec(message: Message, args: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    exec(message: Message, args: any): Promise<Message | Message[]> {
         if (!args.user || !args.date) {
-            message.reply(
-                `You have to use the command correctly: ${Config.PREFIX}add <userMention> <date in format:  ${Constants.DATE_FORMATS.join(' or ')}>`,
+            return message.reply(
+                `You have to use the command correctly: ${Config.PREFIX}add <userMention> <date in format:  ${Constants.DATE_FORMAT}>`,
             );
-            return Promise.reject();
         }
 
-        let user = StorageManager.BirthdayExists(args.user.id,message.guild.id);
+        const user = StorageManager.BirthdayExists(args.user.id, message.guild.id);
 
         if (user) {
-            return message.reply('This person is already added to the server.')
+            return message.reply('This person is already added to the server.');
         }
 
-        let confirmationCode = Math.random()
+        const confirmationCode = Math.random()
             .toString(36)
             .substring(4);
 
-        let userAndAuthorSame = args.user.id === message.author.id;
+        const userAndAuthorSame = args.user.id === message.author.id;
 
         const userEntity = new UserEntity(
             args.user.id,
