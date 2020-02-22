@@ -9,7 +9,7 @@ export default class MessageListener extends Listener {
         });
     }
 
-    exec(message: Message) {
+    exec(message: Message) : void {
         console.log(`${message.author.username} from Guild ${message.guild}(ID: ${message.guild?.id}) says: ${message.content}`);
     }
 }

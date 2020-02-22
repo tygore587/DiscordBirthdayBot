@@ -9,10 +9,10 @@ export default class ReadyListener extends Listener {
         });
     }
 
-    exec() {
+    exec() : void {
         console.log(`I'm online, my name is ${this.client.user.username}`);
         console.log(`My prefix is: ${Config.PREFIX}`);
-        console.log(`I'm running in the following environment: ${Config.ENVIRONMENT}`);
+        console.log(`I'm running in the following environment:  ${Config.IS_DEVELOPMENT ? 'development' : 'production'}`);
         this.client.user.setPresence({
             status: 'dnd',
             game: {

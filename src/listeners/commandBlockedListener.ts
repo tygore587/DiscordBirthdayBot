@@ -10,7 +10,7 @@ export default class CommandBlockedListener extends Listener {
         });
     }
 
-    exec(message: Message, command : Command, reason: string) {
+    exec(message: Message, command : Command, reason: string) : void {
         console.log(`${message.author.username} was blocked from using ${command.id} because of ${reason}!`);
     }
 }

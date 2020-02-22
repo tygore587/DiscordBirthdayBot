@@ -5,7 +5,7 @@ import _ from 'lodash';
 export class StorageManager {
     static tempStorage: Dictionary<UserEntity> = {};
 
-    static Set(key: string, value: UserEntity) {
+    static Set(key: string, value: UserEntity) : void{
         this.tempStorage[key] = value;
     }
 
@@ -25,7 +25,7 @@ export class StorageManager {
         return _.filter(Object.values(this.tempStorage), { userId: userId, guildId : guildId }).length > 0;
     }
 
-    static Clear() {
+    static Clear() : void {
         this.tempStorage = {};
     }
 }

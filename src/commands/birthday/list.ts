@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { StorageManager } from '../../persistence/storageManager';
+import { StorageManager } from '../../entity/storageManager';
 
 export default class ConfirmBirthdayCommand extends Command {
     constructor() {
