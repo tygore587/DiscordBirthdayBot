@@ -27,7 +27,7 @@ export class App {
         const connectionOptions: PostgresConnectionOptions = {
             type: 'postgres',
             url: Config.DATABASE_URL,
-            entities: [__dirname + '/entity/model/*.ts'],
+            entities: [`${__dirname}/entity/model/${Config.IS_DEVELOPMENT ? '*.ts' : '*.js'}`],
             synchronize: true,
             logging: false,
         };
