@@ -1,6 +1,6 @@
+import 'reflect-metadata'; // needed for typeorm
 import { AkairoClient, AkairoOptions } from 'discord-akairo';
 import { join } from 'path';
-import 'reflect-metadata'; // needed for typeorm
 import { Container } from 'typedi';
 import { Connection, createConnection, useContainer } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
@@ -31,7 +31,7 @@ export class App {
             username: Config.DatabaseConfig.DATABASE_USERNAME,
             password: Config.DatabaseConfig.DATABASE_PASSWORD,
             database: 'bot',
-            entities: [__dirname + '/entity/models/*.ts'],
+            entities: [__dirname + '/entity/model/*.ts'],
             synchronize: true,
             logging: false,
         };
