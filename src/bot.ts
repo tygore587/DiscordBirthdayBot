@@ -26,11 +26,7 @@ export class App {
     async connectToDatabase(): Promise<Connection> {
         const connectionOptions: PostgresConnectionOptions = {
             type: 'postgres',
-            host: Config.DatabaseConfig.DATABASE_URL,
-            port: 5432,
-            username: Config.DatabaseConfig.DATABASE_USERNAME,
-            password: Config.DatabaseConfig.DATABASE_PASSWORD,
-            database: 'bot',
+            url: Config.DATABASE_URL,
             entities: [__dirname + '/entity/model/*.ts'],
             synchronize: true,
             logging: false,
@@ -43,7 +39,7 @@ export class App {
             return connection;
         } catch (error) {
             console.log(error);
-            return Promise.reject();
+            throw error;
         }
     }
 
