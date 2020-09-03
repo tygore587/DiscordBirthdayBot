@@ -1,12 +1,3 @@
-mandatory:
- - Nutzer des Servers zu einer Bday-Liste hinzufügen
- - Nutzer am Tag des Bdays Mention und alles Gute wünschen
- - Nutzer aus der Liste löschen
- - Liste ausgeben, eventuell mit Flag von Originalnutzer, ob er das erlaubt
- - Nutzer fragen, der hingefügt werden soll, ob er es ok findet, dass er hinzugefügt wird
- - Nutzer entfernen, die den Server verlassen
- - Server unterscheiden
-	
 optional:
  - Nutzer kann sich zu bestimmten BDays subscriben. (Er wird dann mit gementioned um ihn auf den Bday aufmerksam zu machen).
  - Mentions an Personen immer per PM. Bday selber in den Chat.
@@ -14,17 +5,36 @@ optional:
 
 prefix: ! für prod / ? für dev
 
-commands:
+# commands:
+## MVP (adding myself)
 ```
 	/add <date> -> /add 10.10.1991: Addet den eigenen Geburtstag
+	/remove -> /remove me: Enfernt den User selber
+	/list -> Listet alle User auf
+
+	Announcements passieren dabei einfach auf allen Channeln, worauf der Bot Zugriff hat
+```
+
+Features 1 (Adding others, Announce folder):
+```
 	/add <mention> <date> -> /add @Easy 10.10.1991: Fügt den Geburtstag des Nutzers hinzu
 	/remove <mention> -> /remove @Easy: Entfernt jeweiligen User
-	/remove me -> /remove me: Enfernt den User selber
-	/list -> 10.10.1991 @Easy
-			 05.12.1998 @Bob: Gibt eine Liste an Nutzern aus, dessen Bdays eingetragen sind
-	/mylist -> @Easy, @Bob: Gibt die Liste aus, zu denen man sich selber eingetragen hat
+	/block -> setzt einen selber auf die Blacklist, dadurch ist es nicht hinzufügbar
+	/announceOn <channelname> -> Channelname angeben, wo die Geburtstage announced werden sollen
+
+```
+
+Features 2 (Subscriptions):
+```
+	/add <name> <date>
+		- adding someone (not on discord itself) => eventuell ein problem, weil es Leute vielleicht nicht wollen
+		- vielleicht nur dann auch den einzelnen user sehen lassen
+		- also nur zu den eigenen Subscriptions hinzugefügt
+	/mylist -> whispert einem die eigene Subscription Liste zu
 	/subscribe or /sub <mention> -> /subscripe|sub @Easy: PM Mitteilung für jeweiligen Nutzer aktivieren
 	/unsubscribe or /unsub <mention> -> /unsubscripe/unsub @Easy: PM Mittelung deaktivieren
+
+	Außerdem sollten dabei die Announcements umgebaut werden. Diese sollten nicht mehr in einem Channel passieren, sondern per PM laufen.
 ```
 
 Verbesserungen:
