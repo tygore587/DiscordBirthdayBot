@@ -7,15 +7,21 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-      PGDATA: /pgdata
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: birthday
     ports:
       - 5432:5432
 
     volumes:
-      - /mnt/c/Repos/DiscordBirthdayBot/postgres:/pgdata
+      - ./postgres:/var/lib/postgresql/data
 
-  adminer:
-    image: adminer
-    restart: always
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+        - ./pgadmin:/root/.pgadmin
     ports:
-      - 8080:8080
+      - 8000:80
+    restart: unless-stopped
