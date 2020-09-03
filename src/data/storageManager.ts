@@ -1,5 +1,5 @@
-import { Dictionary } from '../models/dictionary';
-import { UserEntity } from '../models/userEntity';
+import { Dictionary } from '../types/dictionary';
+import { UserEntity } from '../domain/users/models/user';
 import _ from 'lodash';
 
 export class StorageManager {

@@ -4,7 +4,7 @@ import { join } from 'path';
 import { Container } from 'typedi';
 import { Connection, createConnection, useContainer } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { Config } from './config/config';
+import { Config } from './core/config/config';
 
 export class App {
     async connectToDiscord(): Promise<void> {
@@ -27,7 +27,7 @@ export class App {
         const connectionOptions: PostgresConnectionOptions = {
             type: 'postgres',
             url: Config.DATABASE_URL,
-            entities: [`${__dirname}/entity/model/${Config.IS_DEVELOPMENT ? '*.ts' : '*.js'}`],
+            entities: [`data/**/entities/${Config.IS_DEVELOPMENT ? '*.ts' : '*.js'}`],
             synchronize: true,
             logging: false,
         };

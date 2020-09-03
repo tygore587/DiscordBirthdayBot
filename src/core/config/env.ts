@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
 
 config({
-    path: __dirname + '/../.env',
+    path: __dirname + '/../../../.env',
 });

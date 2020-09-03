@@ -4,26 +4,15 @@ import { Guild } from './guild';
 import { User as DiscordUser } from 'discord.js';
 
 @Entity()
-export class User {
+export class UserEntity {
     @PrimaryColumn()
     id!: string;
 
     @Column('date')
     birthDay!: Date;
 
-    @ManyToMany(
-        () => Guild,
-        guild => guild.users,
-    )
-    @JoinTable()
-    guilds!: Guild[];
-
     @OneToMany(
-        () => Confirmation,
-        confirmation => confirmation.user,
-        {
-            nullable: true,
-        },
+        
     )
     confirmations?: Confirmation[];
 

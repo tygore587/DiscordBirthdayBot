@@ -1,4 +1,4 @@
-import '../env';
+import './env';
 
 export class Config {
     static OWNER: string | undefined = process.env.OWNER;

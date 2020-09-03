@@ -1,5 +1,5 @@
 import { Listener } from "discord-akairo";
-import { Config } from "../config/config";
+import { Config } from "../../core/config/config";
 
 export default class ReadyListener extends Listener {
     constructor() {

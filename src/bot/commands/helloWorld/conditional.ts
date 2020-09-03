@@ -1,6 +1,6 @@
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
-import { Config } from "../../config/config";
+import { Config } from "../../../core/config/config";
 
 
 export default class ComplimentCommand extends Command {

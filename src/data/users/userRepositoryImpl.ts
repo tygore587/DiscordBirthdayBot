@@ -1,11 +1,11 @@
 import { Service } from 'typedi';
 import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
-import { User } from '../model/user';
+import { User } from './entities/userEntity';
 import { Guild } from '../model/guild';
 
 @Service()
-export class UserRepository {
+export class UserRepositoryImpl {
     constructor(@InjectRepository(User) private repository: Repository<User>) {}
 
     async findById(id: string): Promise<User | undefined> {

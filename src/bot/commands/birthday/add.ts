@@ -2,16 +2,16 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import Container, { Inject, Service } from 'typedi';
 import { getConnection, getRepository } from 'typeorm';
-import { Config } from '../../config/config';
-import { Confirmation } from '../../entity/model/confirmation';
-import { Guild } from '../../entity/model/guild';
-import { User } from '../../entity/model/user';
+import { Config } from '../../../core/config/config';
+import { Confirmation } from '../../data/users/entities/confirmation';
+import { Guild } from '../../data/users/entities/guild';
+import { User } from '../../../data/users/entities/userEntity';
 import { ConfirmationRepository } from '../../entity/repository/confirmationRepository';
 import { StorageManager } from '../../entity/storageManager';
-import { UserEntity } from '../../models/userEntity';
-import { Constants } from '../../util/constants';
-import { parseDateExact } from '../../util/momentUtil';
-import { UserRepository } from '../../entity/repository/userRepository';
+import { UserEntity } from '../../../domain/users/models/user';
+import { Constants } from '../../../core/constants';
+import { parseDateExact } from '../../../core/utils/momentUtil';
+import { UserRepositoryImpl } from '../../../data/users/userRepositoryImpl';
 import { GuildRepository } from '../../entity/repository/guildRepository';
 import { ConfirmationService } from '../../service/confirmationService';
 
@@ -19,7 +19,7 @@ import { ConfirmationService } from '../../service/confirmationService';
 export default class AddBirthdayCommand extends Command {
 
     confirmationService : ConfirmationService;
-    userRepo : UserRepository;
+    userRepo : UserRepositoryImpl;
     guildRepo: GuildRepository;
 
     constructor() {
@@ -39,7 +39,7 @@ export default class AddBirthdayCommand extends Command {
         });
 
         this.confirmationService = Container.get(ConfirmationService);
-        this.userRepo = Container.get(UserRepository);
+        this.userRepo = Container.get(UserRepositoryImpl);
         this.guildRepo = Container.get(GuildRepository);
     }
 
