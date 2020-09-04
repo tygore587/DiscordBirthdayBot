@@ -1,99 +1,62 @@
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-import Container, { Inject, Service } from 'typedi';
-import { getConnection, getRepository } from 'typeorm';
-import { Config } from '../../../core/config/config';
-import { Confirmation } from '../../data/users/entities/confirmation';
-import { Guild } from '../../data/users/entities/guild';
-import { User } from '../../../data/users/entities/userEntity';
-import { ConfirmationRepository } from '../../entity/repository/confirmationRepository';
-import { StorageManager } from '../../entity/storageManager';
-import { UserEntity } from '../../../domain/users/models/user';
-import { Constants } from '../../../core/constants';
-import { parseDateExact } from '../../../core/utils/momentUtil';
-import { UserRepositoryImpl } from '../../../data/users/userRepositoryImpl';
-import { GuildRepository } from '../../entity/repository/guildRepository';
-import { ConfirmationService } from '../../service/confirmationService';
+import { Command } from "discord-akairo";
+import { Message } from "discord.js";
+import { Guid } from "guid-typescript";
+import Container, { Service } from "typedi";
+import { Config } from "../../../core/config/config";
+import { Constants } from "../../../core/constants";
+import { User } from "../../../core/lib/domain/users/models/user";
+import { UserManager } from "../../../core/lib/domain/users/usecases/userManager";
+import { UserManagerImpl } from "../../../core/lib/domain/users/usecases/userManagerImpl";
+import { BirthdayEntry } from "../../../features/saveBirthday/domain/models/birthdayEntry";
+import { BirthdayEntryManager } from "../../../features/saveBirthday/domain/usecases/birthdayEntryManager";
+import { BirthdayEntryManagerImpl } from "../../../features/saveBirthday/domain/usecases/birthdayEntryManagerImpl";
 
 @Service()
 export default class AddBirthdayCommand extends Command {
+    userManager: UserManager;
 
-    confirmationService : ConfirmationService;
-    userRepo : UserRepositoryImpl;
-    guildRepo: GuildRepository;
+    birthdayManager: BirthdayEntryManager;
 
     constructor() {
-        super('add', {
-            aliases: ['add'],
+        super("add", {
+            aliases: ["add"],
             args: [
                 {
-                    id: 'user',
-                    type: 'user',
+                    id: "username",
+                    type: "string",
                 },
                 {
-                    id: 'date',
-                    type: (date: string): string | undefined => parseDateExact(date, Constants.DATE_FORMAT),
+                    id: "date",
+                    type: "date", //(date: string): string | undefined => parseDateExact(date, Constants.DATE_FORMAT),
+                    // fix problem with date format. It is english format for now, but should be a german one, because used by germans. Maybe make configurable later
                 },
             ],
-            channelRestriction: 'guild',
+            channelRestriction: "guild",
         });
 
-        this.confirmationService = Container.get(ConfirmationService);
-        this.userRepo = Container.get(UserRepositoryImpl);
-        this.guildRepo = Container.get(GuildRepository);
+        this.userManager = Container.get(UserManagerImpl);
+        this.birthdayManager = Container.get(BirthdayEntryManagerImpl);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async exec(message: Message, args: any): Promise<Message | Message[]> {
-        if (!args.user || !args.date) {
+        if (!args.username || !args.date) {
             return message.reply(
-                `You have to use the command correctly: ${Config.PREFIX}add <userMention> <date in format:  ${Constants.DATE_FORMAT}>`,
+                `You have to use the command correctly: ${Config.PREFIX}add <username> <date in format:  ${Constants.DATE_FORMAT}>`,
             );
         }
 
-        const messageGuild = message.guild;
-        const argsUser = args.user;
+        const userId = message.author.id;
 
-        const birthdayExists = await this.confirmationService.confirmationExists(messageGuild.id,argsUser.id);
+        let user = await this.userManager.getUserById(userId);
 
-        if (birthdayExists) {
-            return message.reply('This person is already added to the server.');
+        if (!user) {
+            user = new User({ id: userId });
+            await this.userManager.save(user);
         }
 
-        const userAndAuthorSame = args.user.id === message.author.id;
-
-        const guild = Guild.FromDiscordGuild(messageGuild);
-        await this.guildRepo.save(guild);
-
-        const confirmationCode = Math.random()
-            .toString(36)
-            .substring(4);
-
-        const user = User.FromDiscordUser(argsUser);
-        user.birthDay = new Date(1, 1, 1);
-
-        await this.userRepo.save(user);
-        await this.userRepo.addUserToAnotherGuild(user,guild);
-        
-        const confirmation = new Confirmation({
-            confirmationCode : confirmationCode,
-            guild : guild,
-            user : user
-        });
-        
-        await this.confirmationService.addOrUpdate(confirmation);
-
-        let result: Promise<Message | Message[]>;
-
-        if (!userAndAuthorSame) {
-            args.user.send(
-                `Is it ok if user adding your birthday to server ${message.guild}? Type ${Config.PREFIX}confirm ${confirmationCode} /${Config.PREFIX}deny ${confirmationCode}`,
-            );
-            result = message.reply('User is asked for confirmation to save the birthday.');
-        } else {
-            result = message.reply('You added yourself successfully to the birthday list.');
-        }
-
-        return result;
+        const birthdayEntry = new BirthdayEntry(Guid.create().toString(), args.username, args.date, userId);
+        // TODO: check if birthday is already added for this user
+        await this.birthdayManager.save(birthdayEntry);
+        return message.reply(`Saved successfully.`);
     }
 }

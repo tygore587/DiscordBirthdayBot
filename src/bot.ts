@@ -1,41 +1,35 @@
-import 'reflect-metadata'; // needed for typeorm
-import { AkairoClient, AkairoOptions } from 'discord-akairo';
-import { join } from 'path';
-import { Container } from 'typedi';
-import { Connection, createConnection, useContainer } from 'typeorm';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { Config } from './core/config/config';
+import "reflect-metadata"; // needed for typeorm
+import { AkairoClient } from "discord-akairo";
+import { Container } from "typedi";
+import { Connection, createConnection, useContainer } from "typeorm";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+import { akairoOptions } from "./bot/config";
+import { Config } from "./core/config/config";
+
+// organize-imports-ignore
 
 export class App {
     async connectToDiscord(): Promise<void> {
-        const akairoOptions: AkairoOptions = {
-            ownerID: Config.OWNER,
-            prefix: Config.PREFIX,
-            commandUtil: true,
-            blockBots: true,
-            allowMention: true, // this allows to use @Bot <command> as well as <prefix>command
-            commandDirectory: join(__dirname, 'commands'), // folder to declare commands
-            inhibitorDirectory: join(__dirname, 'inhibitors'), // folder to declare when command should be ignored
-            listenerDirectory: join(__dirname, 'listeners'), // just to listen to events of discord like ready or message or something else
-        };
-
         const client = new AkairoClient(akairoOptions, {});
         client.login(`${Config.TOKEN}`);
     }
 
     async connectToDatabase(): Promise<Connection> {
+        const fileEnding = Config.IS_DEVELOPMENT ? "*.ts" : "*.js";
         const connectionOptions: PostgresConnectionOptions = {
-            type: 'postgres',
+            type: "postgres",
             url: Config.DATABASE_URL,
-            entities: [`data/**/entities/${Config.IS_DEVELOPMENT ? '*.ts' : '*.js'}`],
+            entities: [
+                `${__dirname}/core/lib/data/**/entities/${fileEnding}`,
+                `${__dirname}/features/**/data/entities/${fileEnding}`,
+            ],
             synchronize: true,
             logging: false,
         };
 
-        useContainer(Container);
         try {
             const connection = await createConnection(connectionOptions);
-            console.log('Successfully connected to postgres');
+            console.log("Successfully connected to postgres");
             return connection;
         } catch (error) {
             console.log(error);
@@ -43,9 +37,19 @@ export class App {
         }
     }
 
+    initializeDependencyInjection() {
+        useContainer(Container);
+    }
+
     async start(): Promise<void> {
-        await this.connectToDatabase();
-        this.connectToDiscord();
+        try {
+            this.initializeDependencyInjection();
+            await this.connectToDatabase();
+            await this.connectToDiscord();
+        } catch (error) {
+            console.log(error);
+            process.exit(1);
+        }
     }
 }
 
