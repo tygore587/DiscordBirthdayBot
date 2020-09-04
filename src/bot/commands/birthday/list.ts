@@ -5,9 +5,9 @@ export default class ConfirmBirthdayCommand extends Command {
     constructor() {
         super("list", {
             aliases: ["list"],
-            channelRestriction: "guild",
+            channel: "guild",
         });
     }
 
-    exec(message: Message): void {}
+    exec(message: Message): void { }
 }

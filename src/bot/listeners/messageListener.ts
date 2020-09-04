@@ -3,13 +3,13 @@ import { Message } from "discord.js";
 
 export default class MessageListener extends Listener {
     constructor() {
-        super('message',{
+        super('message', {
             emitter: 'client',
-            eventName: 'message'
+            event: 'message'
         });
     }
 
-    exec(message: Message) : void {
+    exec(message: Message): void {
         console.log(`${message.author.username} from Guild ${message.guild}(ID: ${message.guild?.id}) says: ${message.content}`);
     }
 }

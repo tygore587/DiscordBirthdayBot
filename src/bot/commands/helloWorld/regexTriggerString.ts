@@ -4,7 +4,7 @@ import { Message } from 'discord.js';
 export default class AyyCommand extends Command {
     constructor() {
         super('ayy', {
-            trigger: /ayy/g, // the trigger uses a regex to trigger on commands. Could be used to just autolog some stuff if you want to. Trigger can also come from function.
+            regex: /ayy/g, // the trigger uses a regex to trigger on commands. Could be used to just autolog some stuff if you want to. Trigger can also come from function.
         });
     }
 

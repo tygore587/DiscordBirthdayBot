@@ -3,14 +3,14 @@ import { Message } from "discord.js";
 
 export default class CommandBlockedListener extends Listener {
     constructor() {
-        super('commandBlocked',{
+        super('commandBlocked', {
             emitter: 'commandHandler',
-            eventName: 'commandBlocked',
+            event: 'commandBlocked',
             type: 'once' // only run once if started, if triggerred 
         });
     }
 
-    exec(message: Message, command : Command, reason: string) : void {
+    exec(message: Message, command: Command, reason: string): void {
         console.log(`${message.author.username} was blocked from using ${command.id} because of ${reason}!`);
     }
 }

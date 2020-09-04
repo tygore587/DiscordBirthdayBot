@@ -31,7 +31,7 @@ export default class AddBirthdayCommand extends Command {
                     // fix problem with date format. It is english format for now, but should be a german one, because used by germans. Maybe make configurable later
                 },
             ],
-            channelRestriction: "guild",
+            channel: "guild",
         });
 
         this.userManager = Container.get(UserManagerImpl);

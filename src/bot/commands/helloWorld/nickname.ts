@@ -5,11 +5,13 @@ export default class NicknameCommand extends Command {
     constructor() {
         super('nickname', {
             aliases: ['nickname'],
-            channelRestriction: 'guild', // restricts command to only be used in guilds
+            channel: 'guild', // restricts command to only be used in guilds
         });
     }
 
     exec(message: Message) {
-        return message.reply(`Your nickname is ${message.member.nickname}.`);
+
+        const messageText = message.member ? `Your nickname is ${message.member?.nickname}.` : `You don't have a nickname.`;
+        return message.reply(messageText);
     }
 }

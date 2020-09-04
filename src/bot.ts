@@ -1,16 +1,15 @@
 import "reflect-metadata"; // needed for typeorm
-import { AkairoClient } from "discord-akairo";
 import { Container } from "typedi";
 import { Connection, createConnection, useContainer } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
-import { akairoOptions } from "./bot/config";
 import { Config } from "./core/config/config";
+import { BotClient } from "./bot/client/botclient";
 
 // organize-imports-ignore
 
 export class App {
     async connectToDiscord(): Promise<void> {
-        const client = new AkairoClient(akairoOptions, {});
+        const client = new BotClient();
         client.login(`${Config.TOKEN}`);
     }
 
