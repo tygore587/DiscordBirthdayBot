@@ -1,4 +1,5 @@
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from "discord-akairo";
+import { Config } from "../../core/config/config";
 import { akairoOptions } from "./options/akairoOptions";
 import { commandHandlerOptions } from "./options/commandHandlerOptions";
 import { inhibitorOptions } from "./options/inhibitorHandlerOptions";
@@ -8,6 +9,8 @@ export class BotClient extends AkairoClient {
     commandHandler: CommandHandler;
     inhibitorHandler: InhibitorHandler;
     listenerHandler: ListenerHandler;
+
+
     constructor() {
         super(akairoOptions);
 
@@ -26,5 +29,11 @@ export class BotClient extends AkairoClient {
             listenerHandler: this.listenerHandler,
         });
         this.listenerHandler.loadAll();
+    }
+
+    static async initialize(): Promise<BotClient> {
+        const client = new BotClient();
+        client.login(`${Config.TOKEN}`);
+        return client;
     }
 }

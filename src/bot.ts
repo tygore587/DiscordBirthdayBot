@@ -4,16 +4,15 @@ import { Connection, createConnection, useContainer } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import { Config } from "./core/config/config";
 import { BotClient } from "./bot/client/botclient";
+import { appendFile } from "fs";
 
 // organize-imports-ignore
 
-export class App {
-    async connectToDiscord(): Promise<void> {
-        const client = new BotClient();
-        client.login(`${Config.TOKEN}`);
-    }
 
-    async connectToDatabase(): Promise<Connection> {
+export class App {
+
+
+    static async connectToDatabase(): Promise<Connection> {
         const fileEnding = Config.IS_DEVELOPMENT ? "*.ts" : "*.js";
         const connectionOptions: PostgresConnectionOptions = {
             type: "postgres",
@@ -36,15 +35,23 @@ export class App {
         }
     }
 
-    initializeDependencyInjection() {
+    static initializeDependencyInjection() {
         useContainer(Container);
     }
 
-    async start(): Promise<void> {
+    static addToDependencyInjection(client: BotClient) {
+        Container.set("BotClient", client);
+    }
+
+    static async start(): Promise<void> {
         try {
             this.initializeDependencyInjection();
+
             await this.connectToDatabase();
-            await this.connectToDiscord();
+
+            const client = await BotClient.initialize();
+
+            this.addToDependencyInjection(client);
         } catch (error) {
             console.log(error);
             process.exit(1);
@@ -52,5 +59,4 @@ export class App {
     }
 }
 
-const app = new App();
-app.start();
+App.start();

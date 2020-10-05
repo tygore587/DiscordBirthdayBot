@@ -1,3 +1,4 @@
+import { Moment } from "moment";
 import { UserEntity } from "../../../../core/lib/data/users/entities/userEntity";
 import { BirthdayEntryEntity } from "../../data/entities/birthdayEntryEntity";
 

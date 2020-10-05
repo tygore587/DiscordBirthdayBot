@@ -1,6 +1,7 @@
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { Guid } from "guid-typescript";
+import moment from "moment";
 import Container, { Service } from "typedi";
 import { Config } from "../../../core/config/config";
 import { Constants } from "../../../core/constants";
@@ -27,7 +28,7 @@ export default class AddBirthdayCommand extends Command {
                 },
                 {
                     id: "date",
-                    type: "date", //(date: string): string | undefined => parseDateExact(date, Constants.DATE_FORMAT),
+                    type: (_: Message, date: string): moment.Moment => moment(date, Constants.DATE_FORMAT, true),
                     // fix problem with date format. It is english format for now, but should be a german one, because used by germans. Maybe make configurable later
                 },
             ],
@@ -44,6 +45,10 @@ export default class AddBirthdayCommand extends Command {
                 `You have to use the command correctly: ${Config.PREFIX}add <username> <date in format:  ${Constants.DATE_FORMAT}>`,
             );
         }
+        var dateAsMoment = args.date as moment.Moment;
+
+        if (!dateAsMoment || !dateAsMoment.isValid())
+            return message.reply("The date was not in the correct format. Please use DD.MM.YYYY");
 
         const userId = message.author.id;
 
@@ -54,7 +59,7 @@ export default class AddBirthdayCommand extends Command {
             await this.userManager.save(user);
         }
 
-        const birthdayEntry = new BirthdayEntry(Guid.create().toString(), args.username, args.date, userId);
+        const birthdayEntry = new BirthdayEntry(Guid.create().toString(), args.username, dateAsMoment.toDate(), userId);
         // TODO: check if birthday is already added for this user
         await this.birthdayManager.save(birthdayEntry);
         return message.reply(`Saved successfully.`);
