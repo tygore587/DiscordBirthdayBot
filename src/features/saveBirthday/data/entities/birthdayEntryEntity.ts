@@ -16,6 +16,9 @@ export class BirthdayEntryEntity {
     @ManyToOne(
         type => UserEntity,
         userEntity => userEntity.birthdayEntries,
+        {
+            eager: true,
+        }
     )
     user!: UserEntity;
 

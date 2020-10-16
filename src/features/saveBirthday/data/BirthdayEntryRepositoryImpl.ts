@@ -13,8 +13,13 @@ export class BirthdayEntryRepositoryImpl implements BirthdayEntryRepository {
     constructor(remoteDataSource: BirthdayEntryRemoteDataSourceImpl) {
         this.remoteDataSource = remoteDataSource;
     }
+    async find(name: string, birthday: Date, userId: string): Promise<BirthdayEntry | undefined> {
+        var entry = await this.remoteDataSource.find(name, birthday, userId);
 
-    async getBirthdayEntryById(id: string): Promise<BirthdayEntry | undefined> {
+        return entry?.toBirthDayEntry();
+    }
+
+    async findById(id: string): Promise<BirthdayEntry | undefined> {
         var entry = await this.remoteDataSource.findById(id);
 
         return entry?.toBirthDayEntry();

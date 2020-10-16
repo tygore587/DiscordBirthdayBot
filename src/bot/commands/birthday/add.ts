@@ -50,7 +50,12 @@ export default class AddBirthdayCommand extends Command {
         if (!dateAsMoment || !dateAsMoment.isValid())
             return message.reply("The date was not in the correct format. Please use DD.MM.YYYY");
 
-        const userId = message.author.id;
+        const userId: string = message.author.id;
+        const name: string = args.username;
+        const birthday = dateAsMoment.toDate();
+
+        if (await this.birthdayManager.exists(name, birthday, userId))
+            return message.reply("The birthday already exists for you.");
 
         let user = await this.userManager.getUserById(userId);
 
@@ -60,7 +65,7 @@ export default class AddBirthdayCommand extends Command {
         }
 
         const birthdayEntry = new BirthdayEntry(Guid.create().toString(), args.username, dateAsMoment.toDate(), userId);
-        // TODO: check if birthday is already added for this user
+
         await this.birthdayManager.save(birthdayEntry);
         return message.reply(`Saved successfully.`);
     }
